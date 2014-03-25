@@ -1,6 +1,8 @@
 #initializes needed variables
 quiz_type = ""
 answer = ""
+question= ""
+response= ""
 
 #defines a hash full of the terms and their meanings
 terms = {"pwd" => "print working directory", "hostname" => "my computer's network name", "mkdir" => "make directory", 
@@ -20,81 +22,87 @@ def shuffle_terms(terms_to_shuffle)
 	return terms
 end
 
-def quiz_by_use(key_terms)
-	#shuffles the terms
+def quiz(key_terms, quiz_type)
 	key_terms = shuffle_terms(key_terms)
-	#Prompts the user
-	puts "What command performs this function?"
-	#Takes the shuffled hash and pulls out the first command line definition.
-	puts key_terms.first.last
-	print "> "
-	# gets user response. If correct, removes that term from the hash and asks another question. If incorrect,
-	# user is given the answer and prompted to write it out.
-	answer = gets.chomp()
-	if answer == "#{key_terms.first.first}"
-		key_terms.shift
-		if key_terms.empty?
-			puts "Congratulations - you've finished all the questions."
-		else
-			puts "Correct! Here is another."
-			quiz_by_use(key_terms)
-		end
-	else
-		puts "The answer is \"#{key_terms.first.first}\". Type it out to practice."
-		print "> "
-		gets.chomp()
-		quiz_by_use(key_terms)
-	end
+	question, answer = set_question_and_answer(key_terms, quiz_type)
+	prompt("quiz prompt #{quiz_type}")
+	puts question
+	prompt("input")
+
+	response = gets.chomp()
+	evaluate_response(key_terms, response, answer, quiz_type)
 end
 
-def quiz_by_term(key_terms)
-	#shuffles the terms
-	key_terms = shuffle_terms(key_terms)
-	#prompts the user
-	puts "What function does this command perform?"
-	#Takes the shuffled hash and pulls out the first command line command.
-	puts key_terms.first.first
-	print "> "
-	#Gets user response. If correct, removes that term from the hash and ask another question. If incorrect,
-	#user is given the answer and prompted to write it out.
-	answer = gets.chomp()
-	if answer == "#{key_terms.first.last}"
+# takes user response. If correct, removes that term from the hash and asks another question. If incorrect,
+# user is given the answer and prompted to write it out.
+def evaluate_response(key_terms, response, answer, quiz_type)
+	if response == "#{answer}"
 		key_terms.shift
 		if key_terms.empty?
-			puts "Congratulations - you've finished all the questions."
+			prompt("end_quiz")
 		else
-			puts "Correct! Here is another."
-			quiz_by_term(key_terms)
+			prompt("continue_quiz")
+			quiz(key_terms, quiz_type)
 		end
 	else
-		puts "The answer is \"#{key_terms.first.last}\". Type it out to practice."
-		print "> "
+		prompt("incorrect answer")
+		puts "#{answer}"
+		prompt("input")
 		gets.chomp()
-		quiz_by_term(key_terms)
+		quiz(key_terms, quiz_type)
 	end
 end
 
 #prompts the user to choose the type of quiz.
 def choose_quiz(key_terms)
-	puts "Welcome to the command line quiz based on the Command Line Crash Course."
-	puts "How do you want to study?"
-	puts "A: identify term when given a definition"
-	puts "B: identify definition when given a term"
-	print "> "
+	prompt("set_up_quiz")
 	quiz_type = gets.chomp()
 	if (quiz_type == "A") || (quiz_type == "a")
-		quiz_by_use(key_terms)
+		quiz(key_terms, "A")
 	elsif (quiz_type == "B") || (quiz_type == "b")
-		quiz_by_term(key_terms)
+		quiz(key_terms, "B")
 	else
 		puts "Please choose A or B"
 		choose_quiz(key_terms)
 	end
 end
 
+#sets answer and question according to the type of quiz
+def set_question_and_answer(key_terms, quiz_type)
+		if quiz_type == "A"
+		question = key_terms.first.last
+		answer = key_terms.first.first
+	else
+		question = key_terms.first.first
+		answer = key_terms.first.last
+	end
+	return question, answer
+end
+
+def prompt(use_case)
+	case use_case
+	when "set_up_quiz"
+		puts "Welcome to the command line quiz based on the Command Line Crash Course."
+		puts "How do you want to study?"
+		puts "A: identify term when given a definition"
+		puts "B: identify definition when given a term"
+		print "> "
+	when "end_quiz"
+		puts "Congratulations - you've finished all the questions."
+	when "continue quiz"
+		puts "Correct! Here is another."
+	when "input"
+		print "> "
+	when "incorrect answer"
+		print "Incorrect. Type out the correct answer to practice - "
+	when "quiz prompt A"
+		puts "What command performs this function?"
+	when "quiz prompt B"
+		puts "What function does this command perform?"
+	end
+end
+
 choose_quiz(terms)
-# subtracts an item from the hash.
-# terms.shift
 
 #appears to be arbitrarily jumping from question type to question type. And in Quiz A the hash key pairings are getting mixed up.
 
