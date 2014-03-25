@@ -79,6 +79,7 @@ def set_question_and_answer(key_terms, quiz_type)
 	return question, answer
 end
 
+#stores all the various messages sent to the user.
 def prompt(use_case)
 	case use_case
 	when "set_up_quiz"
@@ -103,7 +104,3 @@ def prompt(use_case)
 end
 
 choose_quiz(terms)
-
-#appears to be arbitrarily jumping from question type to question type. And in Quiz A the hash key pairings are getting mixed up.
-
-
