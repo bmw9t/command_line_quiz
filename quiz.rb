@@ -1,20 +1,13 @@
-#initializes needed variables
+
+#initializes needed things
 quiz_type = ""
+library_choice = ""
 answer = ""
 question= ""
 response= ""
-
-#defines a hash full of the terms and their meanings
-terms = {"pwd" => "print working directory", "hostname" => "my computer's network name", "mkdir" => "make directory", 
-	"cd" => "change directory", "ls" => "list directory", "rmdir" => "remove directory", "pushd" => "push directory", 
-	"popd" => "pop directory", "cp" => "copy directory", "mv" => "move a file or directory", 
-	"less" => "page through a file", "cat" => "print the whole file", "xargs" => "execute arguments", 
-	"find" => "find files", "grep" => "find things inside files", "man" => "read a manual page", 
-	"apropos" => "find what man page is appropriate", "env" => "look at your environment", 
-	"echo" => "print some arguments", "export" => "export/set a new environment variable", 
-	"exit" => "exit the shell", "sudo" => "DANGER! become super root user root DANGER!", 
-	"chmod" => "change permission modifiers", "chown" => "change ownership"}
 shuffle_terms = {}
+
+#fix it so the prompts work based on the python quiz.
 
 #shifts the hash to an array, shuffles the terms, then puts them back in a hash
 def shuffle_terms(terms_to_shuffle)
@@ -55,8 +48,10 @@ end
 
 #prompts the user to choose the type of quiz.
 def choose_quiz(key_terms)
-	prompt("set_up_quiz")
-	quiz_type = gets.chomp()
+	#Commented line gives user the choice of quizzing by answer or definition.
+	#prompt("set_up_quiz")
+	#quiz_type = gets.chomp()
+	quiz_type = "A"
 	if (quiz_type == "A") || (quiz_type == "a")
 		quiz(key_terms, "A")
 	elsif (quiz_type == "B") || (quiz_type == "b")
@@ -82,6 +77,11 @@ end
 #stores all the various messages sent to the user.
 def prompt(use_case)
 	case use_case
+	when "library choice"
+		puts "Which quiz do you want?"
+		puts "A: Command Line"
+		puts "B: Python"
+		print "> "
 	when "set_up_quiz"
 		puts "Welcome to the command line quiz based on the Command Line Crash Course."
 		puts "How do you want to study?"
@@ -102,5 +102,26 @@ def prompt(use_case)
 		puts "What function does this command perform?"
 	end
 end
+
+def library_choice()
+	#gives user choice python/CLI terms
+	#prompt("library choice")
+	#library_choice = gets.chomp()
+	library_choice = "A"
+	if (library_choice == "A") || (library_choice == "a")
+		txt = File.open("ruby_terms.rb")
+		ruby_terms = txt.read
+		ruby_terms = eval(ruby_terms)
+		terms = ruby_terms
+	else
+		txt = File.open("python_terms.rb")
+		python_terms = txt.read
+		python_terms = eval(python_terms)
+		terms = python_terms
+	end
+	return terms
+end
+
+terms = library_choice()
 
 choose_quiz(terms)
