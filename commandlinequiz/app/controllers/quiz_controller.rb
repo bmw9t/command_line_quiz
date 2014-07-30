@@ -2,7 +2,6 @@ class QuizController < ApplicationController
 
 	def index
 		#initializes needed things
-		terms = "A"
 		quiz_type = ""
 		library_choice = ""
 		answer = ""
@@ -106,24 +105,25 @@ class QuizController < ApplicationController
 			end
 		end
 
-		# def library_choice()
+		def library_choice()
 		# 	#gives user choice python/CLI terms
 		# 	#prompt("library choice")
 		# 	#library_choice = gets.chomp()
-		# 	if (library_choice == "A") || (library_choice == "a")
-		# 		txt = File.open("ruby_terms.rb")
-		# 		ruby_terms = txt.read
-		# 		ruby_terms = eval(ruby_terms)
-		# 		terms = ruby_terms
-		# 	else
-		# 		txt = File.open("python_terms.rb")
-		# 		python_terms = txt.read
-		# 		python_terms = eval(python_terms)
-		# 		terms = python_terms
-		# 	end
-		# 	return terms
-		# end
-
-		# choose_quiz(terms)
+		library_choice = "A"
+			if (library_choice == "A") || (library_choice == "a")
+				txt = File.open("ruby_terms.rb")
+				ruby_terms = txt.read
+				ruby_terms = eval(ruby_terms)
+				terms = ruby_terms
+			else
+				txt = File.open("python_terms.rb")
+				python_terms = txt.read
+				python_terms = eval(python_terms)
+				terms = python_terms
+			end
+			return terms
+		end
+		terms = library_choice()
+		choose_quiz(terms)
 	end
 end
