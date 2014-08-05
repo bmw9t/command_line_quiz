@@ -6,6 +6,11 @@ A quiz written in ruby for practicing command line. To download,
 ```
 $ git clone git@github.com:bmw9t/command_line_quiz.git
 ```
+If you get a "permission denied" error, use this instead:
+
+```
+$ git clone https://github.com/bmw9t/command_line_quiz.git
+```
 
 To run the quiz, you must have ruby installed. Move to the repository. Run the quiz directly from the terminal by typing this from the repository folder:
 
