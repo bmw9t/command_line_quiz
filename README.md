@@ -6,7 +6,7 @@ A quiz written in ruby for practicing command line. To download,
 ```
 $ git clone git@github.com:bmw9t/command_line_quiz.git
 ```
-If you get a "permission denied" error, use this instead:
+If you get a "permission denied" error, use this instead to clone using HTTPS instead of SSH:
 
 ```
 $ git clone https://github.com/bmw9t/command_line_quiz.git
