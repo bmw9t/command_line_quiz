@@ -16,6 +16,7 @@ $ ruby quiz.rb
 The quiz presents you with the function that a command performs. You type the command. An example:
 
 ```
+What command performs this function?
 Prints working directory.
 $ pwd
 ```
