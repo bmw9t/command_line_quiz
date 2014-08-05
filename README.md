@@ -7,7 +7,7 @@ A quiz written in ruby for practicing command line. To download,
 $ git clone git@github.com:bmw9t/command_line_quiz.git
 ```
 
-To run the quiz, you must have ruby installed. Run the quiz directly from the terminal by typing this from the repository folder:
+To run the quiz, you must have ruby installed. Move to the repository. Run the quiz directly from the terminal by typing this from the repository folder:
 
 ```
 $ ruby quiz.rb
