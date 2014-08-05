@@ -30,4 +30,6 @@ If you answer correctly, the term is removed from the deck of "flashcards." If y
 
 Note: sometimes the explanations may be opaque. This quiz is meant more to help you memorize the gist of what each command does and to get the commands under your fingers. You will need to supplment this with your own understanding of the command. To really learn what something does, google or use the man command in terminal.
 
+Let me know if it breaks on you!
+
 List of commands is pulled from http://cli.learncodethehardway.org/book/
